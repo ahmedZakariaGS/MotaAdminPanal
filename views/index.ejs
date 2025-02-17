@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Management</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+</head>
+<body class="bg-gray-100 p-10">
+    <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-lg">
+        <h1 class="text-2xl font-bold mb-4 text-center">Course Management</h1>
+
+        <!-- Course Table -->
+        <table class="w-full border-collapse border border-gray-300 mb-6">
+            <thead>
+                <tr class="bg-gray-200">
+                    <th class="border p-2">ID</th>
+                    <th class="border p-2">Title</th>
+                    <th class="border p-2">Price</th>
+                    <th class="border p-2">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% courses.forEach(course => { %>
+                    <tr class="text-center">
+                        <td class="border p-2"><%= course.id %></td>
+                        <td class="border p-2"><%= course.title %></td>
+                        <td class="border p-2"><%= course.price %></td>
+                        <td class="border p-2">
+                            <!-- Update Button -->
+                            <form action="/update/<%= course.id %>" method="POST" class="inline">
+                                <input type="text" name="title" placeholder="New Title" required class="px-2 border">
+                                <input type="text" name="price" placeholder="New Price" required class="px-2 border">
+                                <button type="submit" class="bg-blue-500 text-white px-3 py-1 rounded">Update</button>
+                            </form>
+
+                            <!-- Delete Button -->
+                            <form action="/delete/<%= course.id %>" method="POST" class="inline">
+                                <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+
+        <!-- Add Course Form -->
+        <h2 class="text-xl font-semibold mb-2">Add New Course</h2>
+        <form action="/add" method="POST" class="flex space-x-2">
+            <input type="text" name="title" placeholder="Course Title" required class="border p-2 w-1/2">
+            <input type="text" name="price" placeholder="Price" required class="border p-2 w-1/4">
+            <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Add</button>
+        </form>
+    </div>
+</body>
+</html>
